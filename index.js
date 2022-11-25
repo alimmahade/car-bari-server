@@ -24,6 +24,20 @@ async function run() {
       const options = await mDatabase.find(query).toArray();
       res.send(options);
     });
+
+    const categoryDatabase = client.db("db-name-12").collection("category-car");
+    app.get("/category", async (req, res) => {
+      const query = {};
+      const options = await categoryDatabase.find(query).toArray();
+      res.send(options);
+    });
+    // CategoryDetails Data loaded
+    app.get("/categorydetails", async (req, res) => {
+      const query = {};
+      const cursor = mDatabase.find(query);
+      const categorydetails = await cursor.toArray();
+      res.send(categorydetails);
+    });
   } finally {
   }
 }
