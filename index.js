@@ -19,6 +19,9 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const mDatabase = client.db("db-name-12").collection("collection-db-12");
+    const brandDetails = client
+      .db("db-name-12")
+      .collection("all-car-collection");
     app.get("/mydata", async (req, res) => {
       const query = {};
       const options = await mDatabase.find(query).toArray();
@@ -38,11 +41,13 @@ async function run() {
       const categorydetails = await cursor.toArray();
       res.send(categorydetails);
     });
-    app.get("/booknow", async (req, res) => {
-      const query = {};
-      const cursor = mDatabase.find(query);
-      const categorydetails = await cursor.toArray();
-      res.send(categorydetails);
+
+    app.get("/categorydetails/:id", async (req, res) => {
+      const id = req.params.id;
+      const brand = { brand: id };
+
+      const result = await brandDetails.find(brand).toArray();
+      res.send(result);
     });
   } finally {
   }
