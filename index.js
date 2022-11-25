@@ -38,6 +38,12 @@ async function run() {
       const categorydetails = await cursor.toArray();
       res.send(categorydetails);
     });
+    app.get("/booknow", async (req, res) => {
+      const query = {};
+      const cursor = mDatabase.find(query);
+      const categorydetails = await cursor.toArray();
+      res.send(categorydetails);
+    });
   } finally {
   }
 }
