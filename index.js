@@ -27,7 +27,17 @@ async function run() {
       const options = await mDatabase.find(query).toArray();
       res.send(options);
     });
+    // ------------------------------------
 
+    const orderDatabase = client
+      .db("db-name-12")
+      .collection("order-collection");
+    app.post("/orderpost", (req, res) => {
+      const order = req.body;
+      console.log(order);
+    });
+
+    // ----------------------------------------
     const categoryDatabase = client.db("db-name-12").collection("category-car");
     app.get("/category", async (req, res) => {
       const query = {};
