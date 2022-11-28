@@ -9,26 +9,29 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// mongodb uri
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.0vavtsh.mongodb.net/?retryWrites=true&w=majority`;
-
+// mongodb Client
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
+// mongodb Function
 async function run() {
   try {
     const mDatabase = client.db("db-name-12").collection("collection-db-12");
     const brandDetails = client
       .db("db-name-12")
       .collection("all-car-collection");
+    // get all data
     app.get("/mydata", async (req, res) => {
       const query = {};
       const options = await mDatabase.find(query).toArray();
       res.send(options);
     });
-    // ------------------------------------
 
+    // order Data
     const orderDatabase = client
       .db("db-name-12")
       .collection("order-collection");
@@ -38,7 +41,7 @@ async function run() {
       res.send(result);
     });
 
-    // ----------------------------------------
+    // catagory Database data get
     const categoryDatabase = client.db("db-name-12").collection("category-car");
     app.get("/category", async (req, res) => {
       const query = {};
