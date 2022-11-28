@@ -32,9 +32,10 @@ async function run() {
     const orderDatabase = client
       .db("db-name-12")
       .collection("order-collection");
-    app.post("/orderpost", (req, res) => {
+    app.post("/orderpost", async (req, res) => {
       const order = req.body;
-      console.log(order);
+      const result = await orderDatabase.insertOne(order);
+      res.send(result);
     });
 
     // ----------------------------------------
